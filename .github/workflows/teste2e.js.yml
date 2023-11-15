@@ -19,7 +19,6 @@ jobs:
 
     - name: Installation of dependencies
       run: |
-        cd back
         npm install
 
     - name: Tests execution
@@ -29,5 +28,4 @@ jobs:
         GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
         JWT_SECRET: ${{ secrets.JWT_SECRET }}
       run: |
-        cd back
         npm run test:e2e
