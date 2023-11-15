@@ -1,0 +1,33 @@
+name: Run Back Tests E2E
+
+on:
+  push:
+    branches:
+      - '**'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Installation of dependencies
+      run: |
+        cd back
+        npm install
+
+    - name: Tests execution
+      env:
+        DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+        GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        JWT_SECRET: ${{ secrets.JWT_SECRET }}
+      run: |
+        cd back
+        npm run test:e2e
